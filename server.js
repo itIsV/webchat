@@ -1,9 +1,8 @@
 const app = require('express')();
-const http = require('http');
 
 const server = require('http').createServer(app);
 
-const io = require('./src/sockets/ioConfig')(http);
+const io = require('./src/sockets/ioConfig')(server);
 
 const webchatController = require('./src/controller/webchatController');
 

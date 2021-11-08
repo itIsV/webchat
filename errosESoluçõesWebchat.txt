@@ -1,0 +1,4 @@
+Erro 01:
+    O script no ejs não conseguia reconhecer a conexão com o socket io, pois eu tinha configurado o io de forma errada. Estava passando como parametro pro io o http sem o servidor criado.
+Solução 01:
+    Criei o servidor http e passei o parametro correto pro io no server.js.

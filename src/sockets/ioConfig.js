@@ -1,7 +1,7 @@
 const socketIo = require('socket.io');
 
-module.exports = (http) => {
-  const io = socketIo(http, {
+module.exports = (server) => {
+  const io = socketIo(server, {
       cors: {
         origin: 'http://localhost:3000', 
         methods: ['GET', 'POST'],
