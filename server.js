@@ -1,3 +1,4 @@
+const express = require('express');
 const app = require('express')();
 
 const server = require('http').createServer(app);
@@ -6,10 +7,12 @@ const io = require('./src/sockets/ioConfig')(server);
 
 const webchatController = require('./src/controller/webchatController');
 
+app.use(express.static('src'));
+
 app.set('view engine', 'ejs');
 app.set('views', './src/views');
 
-require('./src/sockets/webchat')(io);
+require('./src/sockets/chatRoom')(io);
 
 app.get('/', webchatController.startMessage);
 

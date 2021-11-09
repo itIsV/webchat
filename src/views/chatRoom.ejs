@@ -4,18 +4,26 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/views/css/chatRoom.css">
   <title>myChat</title>
 </head>
 <body>
+  <header>
+    <h1 style="text-align: center; font-weight: 500; color: #235789;">
+      Welcome to <span style="font-weight: 900; color: #f49f1c;"> Chat Room</span>
+    </h1>
+  </header>
   <ul>
-    <li><%= admin %>: <%= message %></li>
+    
   </ul>
+  <form action="">
+    <input type="text">
+    <button
+      style="font-weight: 600; color: #f49f1c;">
+      SEND
+    </button>
+  </form>
   <script src="/socket.io/socket.io.js"></script>
-  <script src="./js/webchat.js"></script>
-  <!-- <script>
-    const socket = window.io();
-
-    socket.emit('start', 'oi');
-  </script> -->
+  <script src="/views/js/chatRoom.js"></script>
 </body>
 </html>
