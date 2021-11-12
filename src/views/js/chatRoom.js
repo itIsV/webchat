@@ -1,7 +1,6 @@
 const socket = window.io();
 socket.on('connect', () => {
-  const nickname = socket.id;
-  console.log(nickname);
+  const nickname = `User-${socket.id.slice(9)}`;
   
   document.addEventListener('submit', (e) => {
     console.log(nickname);

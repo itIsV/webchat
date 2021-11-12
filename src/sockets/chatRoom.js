@@ -19,6 +19,7 @@ const dateFarmatter = (date) => { // source : https://blog.betrybe.com/javascrip
   };
 module.exports = (io) => io.on('connection', (socket) => {
   socket.on('message', ({ chatMessage, nickname }) => {
+      console.log(nickname);
       const currentDate = new Date(Date.now());
       const formattedMessage = `${dateFarmatter(currentDate)} ${nickname}: ${chatMessage}`;
       
