@@ -1,29 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/views/css/chatRoom.css">
-  <title>myChat</title>
-</head>
-<body>
-  <header>
-    <h1 style="text-align: center; font-weight: 500; color: #235789;">
-      Welcome to <span style="font-weight: 900; color: #f49f1c;"> Chat Room</span>
-    </h1>
-  </header>
-  <ul>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/views/css/chatRoom.css">
+    <title>myChat</title>
+  </head>
+  <body>
+    <header
+      style=
+            "flex-direction: row;
+            font-weight: 500;
+            color: #235789;"
+    >
+      <h1
+        style=
+          "text-align: center;
+          font-weight: 500;
+          color: #235789;"
+      >
+        Welcome to <span style="font-weight: 900; color: #f49f1c;"> Chat Room</span>
+        
+        <input
+          placeholder=""
+          type="text"
+          style=
+          "border-radius: 8px;
+          border: 0px;
+          padding: 1.2vh;
+          text-align: center;"
+        >
+
+        <button
+          onclick="setPlaceholder()"
+          style=
+            "border-radius: 8px;
+            padding: 0.5vh;
+            font-weight: bolder;
+            color: #fdfffc;
+            border: 0px;
+            background-color: #c1292e;"
+        >
+          Change</button>
+
+      </h1>
+
+    </header>
+
+    <ul>
+      
+    </ul>
     
-  </ul>
-  <form action="">
-    <input type="text">
-    <button
-      style="font-weight: 600; color: #f49f1c;">
-      SEND
-    </button>
-  </form>
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="/views/js/chatRoom.js"></script>
-</body>
+    <form action="">
+      <input 
+        data-testid="message-box"
+        type="text">
+      <button
+        data-testid="send-button"
+        style=
+          "font-weight: 600;
+          color: #f49f1c;"
+      >
+        SEND
+      </button>
+    </form>
+    
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/views/js/chatRoom.js"></script>
+  </body>
 </html>
