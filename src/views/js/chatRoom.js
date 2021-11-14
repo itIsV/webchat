@@ -2,16 +2,16 @@ const socket = window.io();
 let nickname;
 
 const setNickname = (nicknameValue) => {
-  const currentNickname = document.querySelectorAll('span')[1];
+  const currentNickname = document.querySelector('.invisibleNickname');
   currentNickname.innerHTML = nicknameValue;
   socket.emit('changeNickname', nicknameValue);
 };
 
 const setPlaceholder = (inputValue) => {
-  const nicknameInput = document.querySelectorAll('input')[0];
+  const nicknameInput = document.querySelector('[data-testid="nickname-box"]'); // source: https://github.com/testing-library/dom-testing-library/issues/76
   
   if (!inputValue) {
-    const aValue = document.querySelectorAll('input')[0].value;
+    const aValue = document.querySelector('[data-testid="nickname-box"]').value;
     setNickname(aValue);
     nicknameInput.value = '';
     return nicknameInput.setAttribute('placeholder', aValue);
@@ -31,7 +31,7 @@ socket.on('changeNickname', (nicknameValue) => {
 });
 
 document.addEventListener('submit', (e) => {
-  const input = document.querySelectorAll('input')[1];
+  const input = document.querySelector('[data-testid="message-box"]');
   const chatMessage = input.value;
   e.preventDefault();
   socket.emit('message', { chatMessage, nickname });
@@ -39,7 +39,7 @@ document.addEventListener('submit', (e) => {
 });
 
 socket.on('message', (formattedMessage) => {
-  const ul = document.querySelector('ul');
+  const ul = document.querySelector('#ulForMessages');
   const li = document.createElement('li');
   li.setAttribute('data-testid', 'message');
   li.innerText = formattedMessage;
