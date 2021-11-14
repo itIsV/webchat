@@ -1,5 +1,7 @@
 body {
   background-color: #fdfffc;
+  border: 0;
+  margin: 0;
 }
 
 form {
@@ -7,28 +9,100 @@ form {
   bottom: 0;
   padding: 0.2%;
   position: fixed;
-  width: 100%;
+  width: 70%;
+}
+
+form button {
+  background: #235789;
+  border: none;
+  color: #f49f1c;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 8px;
+  width: 7%;
 }
 
 form input {
   border: 0;
   margin-right: 0.5%;
   padding: 10px;
-  width: 90%;
+  width: 89%;
 }
 
-form button {
-  background: #235789;
-  border: none;
-  cursor: pointer;
-  padding: 10px;
-  width: 7%;
+h1 {
+  color: #fdfffc;
+  font-weight: 500;
+  text-align: center;
 }
 
-li {
-  list-style-type: none;
+h1 .chatRoomTitle {
+  color: #f49f1c;
+  font-weight: 900;
+}
+
+h1 .invisibleNickname {
+  background-color: #235789;
+  color: #235789;
+  font-size: 1px;
+}
+
+h1 button {
+  background-color: #c1292e;
+  border: 0;
+  border-radius: 8px;
+  color: #fdfffc;
+  font-size: medium;
+  font-weight: 900;
+  padding: 1vh;
+}
+
+h1 input {
+  border: 0;
+  border-radius: 8px;
+  padding: 1.2vh;
+  text-align: center;
+}
+
+header {
+  background-color: #235789;
+  border-end-end-radius: 0%;
+  border-end-start-radius: 3%;
+  flex-direction: row;
+  font-weight: 500;
+  padding: 1vh;
 }
 
 input::placeholder { /* source: https://css-tricks.com/almanac/selectors/p/placeholder/ */
   font-size: x-large;
+}
+
+li {
+  font-family: helvetica, Courier, monospace;
+  list-style-type: none;
+  padding-bottom: 3%;
+}
+
+main {
+  background-color: #fdfffc;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+main aside {
+  border: solid #f49f1c 1px;
+  border-end-start-radius: 5%;
+  width: 18%;
+}
+
+main div {
+  background-color: #fdfffc;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 70%;
+}
+
+main div ul {
+  padding-left: 1.5%;
 }

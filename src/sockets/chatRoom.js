@@ -31,7 +31,7 @@ module.exports = (io) => io.on('connection', (socket) => {
 
       const currentDate = new Date();
 
-      const formattedMessage = `${dateFarmatter(currentDate)} ${currentNickname}: ${chatMessage}`;
+      const formattedMessage = `${dateFarmatter(currentDate)} - ${currentNickname}: ${chatMessage}`;
 
       io.emit('message', formattedMessage);
   });

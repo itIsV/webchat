@@ -10,75 +10,62 @@
   </head>
 
   <body>
-    <header
-      style=
-        "flex-direction: row;
-        font-weight: 500;
-        color: #235789;"
-    >
-      <h1
-        style=
-          "text-align: center;
-          font-weight: 500;
-          color: #235789;"
-      >
-        Welcome to <span style="font-weight: 900; color: #f49f1c;"> Chat Room</span>
+    <header>
+      <h1>
+        Welcome to <span class="chatRoomTitle"> Chat Room</span>
 
         <input
           data-testid="nickname-box"
           placeholder=""
           type="text"
-          style=
-          "border-radius: 8px;
-          border: 0px;
-          padding: 1.2vh;
-          text-align: center;"
         >
 
         <button
-          onclick="setPlaceholder()"
           data-testid="nickname-button"
-          style=
-            "border-radius: 8px;
-            padding: 0.5vh;
-            font-weight: bolder;
-            color: #fdfffc;
-            border: 0px;
-            background-color: #c1292e;"
+          onclick="setPlaceholder()"
         >
           Change
         </button>
 
         <span
+          class="invisibleNickname"
           data-testid="online-user"
-          style=
-            "font-size: 1px;
-            color: #fdfffc;
-            background-color: #fdfffc;"
         >
         
         </span>        
       </h1>
     </header>
 
-    <ul>
-      
-    </ul>
-    
-    <form action="">
-      <input 
-        data-testid="message-box"
-        type="text"
-      >
-      <button
-        data-testid="send-button"
-        style=
-          "font-weight: 600;
-          color: #f49f1c;"
-      >
-        SEND
-      </button>
-    </form>
+    <main>
+      <div>
+        <ul>
+          
+        </ul>
+        
+        <form action="">
+          <input 
+            data-testid="message-box"
+            type="text"
+          >
+          <button
+            data-testid="send-button"
+          >
+            SEND
+          </button>
+        </form>
+      </div>
+
+      <aside>
+        <ul>
+          <li>Usuário fictício 1</li>
+          <li>Usuário fictício 2</li>
+          <li>Usuário fictício 3</li>
+          <li>Usuário fictício 4</li>
+          <li>Usuário fictício 5</li>
+          <li>Usuário fictício 6</li>
+        </ul>
+      </aside>
+    </main>
     
     <script src="/socket.io/socket.io.js"></script>
     <script src="/views/js/chatRoom.js"></script>

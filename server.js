@@ -14,7 +14,7 @@ app.set('views', './src/views');
 
 require('./src/sockets/chatRoom')(io);
 
-app.get('/', webchatController.startMessage);
+app.get('/', webchatController.startWebchat);
 
 server.listen(3000, () => {
   console.log('Servidor ouvindo na porta 3000');
