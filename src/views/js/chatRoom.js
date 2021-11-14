@@ -1,34 +1,47 @@
 const socket = window.io();
-const setPlaceholder = (value) => {
+let nickname;
+
+const setNickname = (nicknameValue) => {
+  const currentNickname = document.querySelectorAll('span')[1];
+  currentNickname.innerHTML = nicknameValue;
+  socket.emit('changeNickname', nicknameValue);
+};
+
+const setPlaceholder = (inputValue) => {
   const nicknameInput = document.querySelectorAll('input')[0];
-  console.log('oi fora do if');
   
-  if (!value) {
+  if (!inputValue) {
     const aValue = document.querySelectorAll('input')[0].value;
-    console.log('dentro do if aValue: ', aValue);
+    setNickname(aValue);
     nicknameInput.value = '';
     return nicknameInput.setAttribute('placeholder', aValue);
   }
-
-  nicknameInput.setAttribute('placeholder', value);
+  
+  setNickname(inputValue);
+  nicknameInput.setAttribute('placeholder', inputValue);
 };
 
 socket.on('connect', () => {
-  const nickname = `User-${socket.id.slice(9)}`;
+  nickname = `User-${socket.id.slice(9)}`;
   setPlaceholder(nickname);
+});
 
-  document.addEventListener('submit', (e) => {
-    const input = document.querySelectorAll('input')[1];
-    const chatMessage = input.value;
-    e.preventDefault();
-    socket.emit('message', { chatMessage, nickname });
-    input.value = '';
-  });
-  socket.on('message', (formattedMessage) => {
-    const ul = document.querySelector('ul');
-    const li = document.createElement('li');
-    li.setAttribute('data-testid', 'message');
-    li.innerText = formattedMessage;
-    ul.appendChild(li);
-  });
+socket.on('changeNickname', (nicknameValue) => {
+  nickname = nicknameValue;
+});
+
+document.addEventListener('submit', (e) => {
+  const input = document.querySelectorAll('input')[1];
+  const chatMessage = input.value;
+  e.preventDefault();
+  socket.emit('message', { chatMessage, nickname });
+  input.value = '';
+});
+
+socket.on('message', (formattedMessage) => {
+  const ul = document.querySelector('ul');
+  const li = document.createElement('li');
+  li.setAttribute('data-testid', 'message');
+  li.innerText = formattedMessage;
+  ul.appendChild(li);
 });

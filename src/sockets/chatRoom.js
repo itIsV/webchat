@@ -24,11 +24,21 @@ const dateFarmatter = (date) => { // source : https://blog.betrybe.com/javascrip
 };
 
 module.exports = (io) => io.on('connection', (socket) => {
+  let currentNickname;
+
   socket.on('message', ({ chatMessage, nickname }) => {
+      currentNickname = nickname;
+
       const currentDate = new Date();
 
-      const formattedMessage = `${dateFarmatter(currentDate)} ${nickname}: ${chatMessage}`;
-      
+      const formattedMessage = `${dateFarmatter(currentDate)} ${currentNickname}: ${chatMessage}`;
+
       io.emit('message', formattedMessage);
+  });
+
+  socket.on('changeNickname', (nicknameValue) => {
+    currentNickname = nicknameValue;
+
+    socket.emit('changeNickname', nicknameValue);
   });
 });

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,12 +8,13 @@
     <link rel="stylesheet" href="/views/css/chatRoom.css">
     <title>myChat</title>
   </head>
+
   <body>
     <header
       style=
-            "flex-direction: row;
-            font-weight: 500;
-            color: #235789;"
+        "flex-direction: row;
+        font-weight: 500;
+        color: #235789;"
     >
       <h1
         style=
@@ -21,8 +23,9 @@
           color: #235789;"
       >
         Welcome to <span style="font-weight: 900; color: #f49f1c;"> Chat Room</span>
-        
+
         <input
+          data-testid="nickname-box"
           placeholder=""
           type="text"
           style=
@@ -34,6 +37,7 @@
 
         <button
           onclick="setPlaceholder()"
+          data-testid="nickname-button"
           style=
             "border-radius: 8px;
             padding: 0.5vh;
@@ -42,10 +46,19 @@
             border: 0px;
             background-color: #c1292e;"
         >
-          Change</button>
+          Change
+        </button>
 
+        <span
+          data-testid="online-user"
+          style=
+            "font-size: 1px;
+            color: #fdfffc;
+            background-color: #fdfffc;"
+        >
+        
+        </span>        
       </h1>
-
     </header>
 
     <ul>
@@ -55,7 +68,8 @@
     <form action="">
       <input 
         data-testid="message-box"
-        type="text">
+        type="text"
+      >
       <button
         data-testid="send-button"
         style=
