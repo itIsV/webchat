@@ -1,4 +1,4 @@
-const { sendMessages } = require('../models/chatRooms');
+const { sendMessages } = require('../models/chatRoomModel');
 
 const dateString = (date) => {
   const { year, month, day, hour, minutes, seconds, pmOrAm } = date;
@@ -26,29 +26,23 @@ const dateFarmatter = (date) => { // source : https://blog.betrybe.com/javascrip
 };
 
 module.exports = (io) => io.on('connection', (socket) => {
-  let currentNickname;
-
   socket.on('message', async ({ chatMessage, nickname }) => {
-      currentNickname = nickname;
-
       const currentDate = new Date();
 
       const formattedDate = dateFarmatter(currentDate);
 
       await sendMessages({
         message: chatMessage,
-        nickname: currentNickname,
+        nickname,
         timestamp: formattedDate,
       });
 
-      const formattedMessage = `${formattedDate} - ${currentNickname}: ${chatMessage}`;
+      const formattedMessage = `${formattedDate} - ${nickname}: ${chatMessage}`;
 
       io.emit('message', formattedMessage);
   });
 
   socket.on('changeNickname', (nicknameValue) => {
-    currentNickname = nicknameValue;
-
     socket.emit('changeNickname', nicknameValue);
   });
 });

@@ -1,8 +1,8 @@
-const { getMessages } = require('../models/chatRooms');
+const { getMessages } = require('../models/chatRoomModel');
 
 const startWebchat = async (_req, res) => {
   const messages = await getMessages();
-  console.log(messages);
+
   res.status(200).render('chatRoom', { messages }); 
 };
 
