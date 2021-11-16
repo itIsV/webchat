@@ -1,4 +1,5 @@
 const socket = window.io();
+const dataTestId = 'data-testid';
 
 const setNickname = (nicknameValue) => {
   const currentNickname = document.querySelector('.invisibleNickname');
@@ -33,6 +34,8 @@ socket.on('connect', () => {
 
 socket.on('changeNickname', (nicknameValue) => {
   sessionStorage.nickname = nicknameValue;
+
+  socket.emit('setOnlineUsers');
 });
 
 document.addEventListener('submit', (e) => {
@@ -51,8 +54,43 @@ socket.on('message', (formattedMessage) => {
   const ul = document.querySelector('#ulForMessages');
 
   const li = document.createElement('li');
-  li.setAttribute('data-testid', 'message');
+  li.setAttribute(dataTestId, 'message');
   li.innerText = formattedMessage;
 
   ul.appendChild(li);
+});
+
+const removeUlChilds = (ul) => { // source: https://www.geeksforgeeks.org/remove-all-the-child-elements-of-a-dom-node-in-javascript/
+  let ulChild = ul.lastElementChild; 
+  while (ulChild) {
+      ul.removeChild(ulChild);
+      ulChild = ul.lastElementChild;
+  } 
+};
+
+  const setFirstLi = (ul, nickname) => {
+    const li = document.createElement('li');
+    li.setAttribute(dataTestId, 'online-user');
+    li.innerText = nickname;
+
+    ul.appendChild(li);
+  }; 
+
+socket.on('setOnlineUsers', (users) => {
+  const { nickname } = sessionStorage;
+  const ul = document.querySelector('#ulForOnlineUsers');
+
+  removeUlChilds(ul);
+
+  setFirstLi(ul, nickname);
+
+    users
+    .filter((user) => user !== nickname)
+    .forEach((newUser) => {
+      const li = document.createElement('li');
+      li.setAttribute(dataTestId, 'online-user');
+      li.innerText = newUser;
+      
+      ul.appendChild(li);
+    });
 });

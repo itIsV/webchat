@@ -25,17 +25,28 @@ const dateFarmatter = (date) => { // source : https://blog.betrybe.com/javascrip
   return formatedDate;
 };
 
+const usersIdsAndNicknames = {};
+let users = [];
+
+const setOnlineUsers = () => {
+  users = [];
+
+  Object.values(usersIdsAndNicknames).forEach((user) => {
+    users.push(user);
+  });
+};
+
+const removeDisconnectedUser = (socketId) => {
+  delete usersIdsAndNicknames[socketId];
+
+  setOnlineUsers();
+};
+
 module.exports = (io) => io.on('connection', (socket) => {
   socket.on('message', async ({ chatMessage, nickname }) => {
-      const currentDate = new Date();
+      const formattedDate = dateFarmatter(new Date());
 
-      const formattedDate = dateFarmatter(currentDate);
-
-      await sendMessages({
-        message: chatMessage,
-        nickname,
-        timestamp: formattedDate,
-      });
+      await sendMessages({ message: chatMessage, nickname, timestamp: formattedDate });
 
       const formattedMessage = `${formattedDate} - ${nickname}: ${chatMessage}`;
 
@@ -43,6 +54,20 @@ module.exports = (io) => io.on('connection', (socket) => {
   });
 
   socket.on('changeNickname', (nicknameValue) => {
+    usersIdsAndNicknames[socket.id] = nicknameValue;
+
     socket.emit('changeNickname', nicknameValue);
+  });
+
+  socket.on('setOnlineUsers', () => {
+    setOnlineUsers();
+
+    io.emit('setOnlineUsers', users);
+  });
+
+  socket.on('disconnect', () => {
+    removeDisconnectedUser(socket.id);
+
+      socket.broadcast.emit('setOnlineUsers', users);
   });
 });
