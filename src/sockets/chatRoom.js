@@ -65,7 +65,7 @@ module.exports = (io) => io.on('connection', (socket) => {
     io.emit('setOnlineUsers', users);
   });
 
-  socket.on('disconnect', () => {
+  socket.on('disconnecting', () => {
     removeDisconnectedUser(socket.id);
 
       socket.broadcast.emit('setOnlineUsers', users);

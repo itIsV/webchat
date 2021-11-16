@@ -2,8 +2,8 @@ const socket = window.io();
 const dataTestId = 'data-testid';
 
 const setNickname = (nicknameValue) => {
-  const currentNickname = document.querySelector('.invisibleNickname');
-  currentNickname.innerHTML = nicknameValue;
+  // const currentNickname = document.querySelector('.invisibleNickname');
+  // currentNickname.innerHTML = nicknameValue;
 
   socket.emit('changeNickname', nicknameValue);
 };
