@@ -90,6 +90,7 @@ main {
 }
 
 main aside {
+  padding-bottom: 100vh;
   border: solid #f49f1c 1px;
   border-end-start-radius: 5%;
   width: 18%;
