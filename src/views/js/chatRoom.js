@@ -23,8 +23,6 @@ socket.on('connect', () => {
 
 socket.on('changeNickname', (nicknameValue) => {
   sessionStorage.nickname = nicknameValue;
-
-  // socket.emit('setOnlineUsers');
 });
 
 document.addEventListener('submit', (e) => {
@@ -72,13 +70,10 @@ socket.on('setOnlineUsers', (users) => {
   removeUlChilds(ul);
 
   setFirstLi(ul, nickname);
-  console.log('users before splice', users);
 
   users
   .splice(users.indexOf(nickname), 1);
-  
-  console.log('users after splice', users);
-  
+
   users
   .forEach((newUser) => {
     const li = document.createElement('li');
