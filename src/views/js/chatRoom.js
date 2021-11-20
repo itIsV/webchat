@@ -1,29 +1,18 @@
 const socket = window.io();
-const dataTestId = 'data-testid';
+const DATA_TESTID = 'data-testid';
 
 const setNickname = (nicknameValue) => {
-  // const currentNickname = document.querySelector('.invisibleNickname');
-  // currentNickname.innerHTML = nicknameValue;
-
   socket.emit('changeNickname', nicknameValue);
 };
 
-const setPlaceholder = (inputValue) => {
+const setPlaceholder = (inputValue =
+  document.querySelector('[data-testid="nickname-box"]').value) => {
   const nicknameInput = document.querySelector('[data-testid="nickname-box"]'); // source: https://github.com/testing-library/dom-testing-library/issues/76
-  
-  if (!inputValue) {
-    const aValue = document.querySelector('[data-testid="nickname-box"]').value;
-
-    setNickname(aValue);
-
-    nicknameInput.value = '';
-
-    return nicknameInput.setAttribute('placeholder', aValue);
-  }
-  
+    
   setNickname(inputValue);
-
+  
   nicknameInput.setAttribute('placeholder', inputValue);
+  nicknameInput.value = '';
 };
 
 socket.on('connect', () => {
@@ -35,7 +24,7 @@ socket.on('connect', () => {
 socket.on('changeNickname', (nicknameValue) => {
   sessionStorage.nickname = nicknameValue;
 
-  socket.emit('setOnlineUsers');
+  // socket.emit('setOnlineUsers');
 });
 
 document.addEventListener('submit', (e) => {
@@ -54,7 +43,7 @@ socket.on('message', (formattedMessage) => {
   const ul = document.querySelector('#ulForMessages');
 
   const li = document.createElement('li');
-  li.setAttribute(dataTestId, 'message');
+  li.setAttribute(DATA_TESTID, 'message');
   li.innerText = formattedMessage;
 
   ul.appendChild(li);
@@ -70,7 +59,7 @@ const removeUlChilds = (ul) => { // source: https://www.geeksforgeeks.org/remove
 
   const setFirstLi = (ul, nickname) => {
     const li = document.createElement('li');
-    li.setAttribute(dataTestId, 'online-user');
+    li.setAttribute(DATA_TESTID, 'online-user');
     li.innerText = nickname;
 
     ul.appendChild(li);
@@ -83,14 +72,19 @@ socket.on('setOnlineUsers', (users) => {
   removeUlChilds(ul);
 
   setFirstLi(ul, nickname);
+  console.log('users before splice', users);
 
-    users
-    .filter((user) => user !== nickname)
-    .forEach((newUser) => {
-      const li = document.createElement('li');
-      li.setAttribute(dataTestId, 'online-user');
-      li.innerText = newUser;
-      
-      ul.appendChild(li);
-    });
+  users
+  .splice(users.indexOf(nickname), 1);
+  
+  console.log('users after splice', users);
+  
+  users
+  .forEach((newUser) => {
+    const li = document.createElement('li');
+    li.setAttribute(DATA_TESTID, 'online-user');
+    li.innerText = newUser;
+    
+    ul.appendChild(li);
+  });
 });

@@ -46,7 +46,7 @@ module.exports = (io) => io.on('connection', (socket) => {
   socket.on('message', async ({ chatMessage, nickname }) => {
       const formattedDate = dateFarmatter(new Date());
 
-      await sendMessages({ message: chatMessage, nickname, timestamp: formattedDate });
+      sendMessages({ message: chatMessage, nickname, timestamp: formattedDate });
 
       const formattedMessage = `${formattedDate} - ${nickname}: ${chatMessage}`;
 
@@ -57,13 +57,13 @@ module.exports = (io) => io.on('connection', (socket) => {
     usersIdsAndNicknames[socket.id] = nicknameValue;
 
     socket.emit('changeNickname', nicknameValue);
-  });
-
-  socket.on('setOnlineUsers', () => {
     setOnlineUsers();
-
     io.emit('setOnlineUsers', users);
   });
+
+  // socket.on('setOnlineUsers', () => {
+
+  // });
 
   socket.on('disconnecting', () => {
     removeDisconnectedUser(socket.id);
