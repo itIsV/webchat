@@ -1,5 +1,9 @@
 const { sendMessages } = require('../models/chatRoomModel');
 
+const usersIdsAndNicknames = {};
+
+let users = [];
+
 const dateString = (date) => {
   const { year, month, day, hour, minutes, seconds, pmOrAm } = date;
   
@@ -25,15 +29,8 @@ const dateFarmatter = (date) => { // source : https://blog.betrybe.com/javascrip
   return formatedDate;
 };
 
-const usersIdsAndNicknames = {};
-let users = [];
-
 const setOnlineUsers = () => {
-  users = [];
-
-  Object.values(usersIdsAndNicknames).forEach((user) => {
-    users.push(user);
-  });
+  users = Object.values(usersIdsAndNicknames);
 };
 
 const removeDisconnectedUser = (socketId) => {
@@ -44,19 +41,17 @@ const removeDisconnectedUser = (socketId) => {
 
 module.exports = (io) => io.on('connection', (socket) => {
   socket.on('message', async ({ chatMessage, nickname }) => {
-      const formattedDate = dateFarmatter(new Date());
+    const formattedDate = dateFarmatter(new Date());
 
-      sendMessages({ message: chatMessage, nickname, timestamp: formattedDate });
+    sendMessages({ message: chatMessage, nickname, timestamp: formattedDate });
 
-      const formattedMessage = `${formattedDate} - ${nickname}: ${chatMessage}`;
+    const formattedMessage = `${formattedDate} - ${nickname}: ${chatMessage}`;
 
-      io.emit('message', formattedMessage);
+    io.emit('message', formattedMessage);
   });
 
   socket.on('changeNickname', (nicknameValue) => {
     usersIdsAndNicknames[socket.id] = nicknameValue;
-
-    socket.emit('changeNickname', nicknameValue);
 
     setOnlineUsers();
     
@@ -66,6 +61,6 @@ module.exports = (io) => io.on('connection', (socket) => {
   socket.on('disconnecting', () => {
     removeDisconnectedUser(socket.id);
 
-      socket.broadcast.emit('setOnlineUsers', users);
+    socket.broadcast.emit('setOnlineUsers', users);
   });
 });
