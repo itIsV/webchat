@@ -7,6 +7,7 @@ Projeto realizado na escola Trybe, onde construí uma aplicação em `Node.js` d
 - [Habilidades](#habilidades)
 - [O que foi desenvolvido](#o-que-foi-desenvolvido)
 - [Instruções para clonar o projeto](#instruções-para-clonar-o-projeto)
+- [Projeto em funcionamento](#projeto-em-funcionamento)
 
 ---
 
@@ -41,3 +42,12 @@ Um _chat_ online onde o usuário é capaz de:
   * `npm start`
   * acesse `http://localhost:3000/`
 ---
+
+## Projeto em funcionamento:
+
+### 📹 Video 📹
+
+https://user-images.githubusercontent.com/78622360/142773000-f9981a38-3524-4f68-a4ef-092b2a726c08.mp4
+
+
+
