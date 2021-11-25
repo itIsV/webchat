@@ -8,7 +8,7 @@ const removeSessionUser = (users, sessionUser) => {
   .splice(users.indexOf(sessionUser), 1);
 };
 
-const setAnotherUserLi = (users, ul) => {
+const setAnotherUsersLi = (users, ul) => {
   users
   .forEach((newUser) => {
     const li = document.createElement('li');
@@ -89,5 +89,5 @@ socket.on('setOnlineUsers', (users) => {
 
   setFirstUserLi(ul, nickname);
 
-  setAnotherUserLi(users, ul);
+  setAnotherUsersLi(users, ul);
 });
